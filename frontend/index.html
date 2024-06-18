@@ -41,7 +41,12 @@
         let selectedFile;
 
         videoUpload.addEventListener("change",function(e){
-            
+
+            if(e.target.files && e.target.files.length > 0){
+                selectedFile = e.target.files[0]
+                let selectedVideo = URL.createObjectURL(selectedFile)
+                videoPreview.src =  selectedVideo;
+            }
         })
     </script>
 </body>
