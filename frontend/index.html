@@ -48,6 +48,32 @@
                 videoPreview.src =  selectedVideo;
             }
         })
+
+        async function trascribeVideo(){
+            let formData = new FormData()
+            formData.append("file",selectedFile)
+
+            try {
+                let response  = await axios.post('BACKEND_URL',formData,{
+                    header:{
+                        'Content-Type':'multipart/form-data'
+                    }
+                })
+
+                if(response.data){
+                    displayTranscription(response)
+                }
+            } catch (error) {
+                console.log(error)
+                alert('Video Transcription Failed')
+            }
+        }
+
+        transcribeButton.addEventListener('click',trascribeVideo);
+
+        function displayTranscription(response){
+            transcribedText.innerHTML = response.data.text;
+        }
     </script>
 </body>
 </html>
